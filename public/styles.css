@@ -1,0 +1,32 @@
+body {
+    /* margin: 0;
+    padding: 0; */
+    overflow: hidden;
+    background-color: black;
+    transform-origin: center center;
+}
+
+#tileCanvas {
+    position: absolute;
+    z-index: -1;
+    image-rendering: pixelated;
+    transform-origin: center center;
+    outline: 5px solid black;
+    border-radius: 10px;
+}
+
+#color-palette{
+    position: fixed;
+    margin-left: auto;
+    top: 590px;
+    left: 250px;
+    width: 1000px;
+    height: 200px;
+    image-rendering: pixelated;
+    border-radius: 20px;
+}
+
+.btn{
+    color: white;
+    background-color: purple;
+}
