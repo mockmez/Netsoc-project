@@ -186,6 +186,8 @@ color_palette.addEventListener('click', (event) =>{
     })
 })
 
+
+
 //ANIMATION LOOP
 
 function frame_draw(){

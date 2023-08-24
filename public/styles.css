@@ -25,3 +25,121 @@ body {
     image-rendering: pixelated;
     border-radius: 20px;
 }
+
+.color-box{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #000;
+    border-radius: 20%;
+}
+
+.selected-color{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: inline-block;
+}
+
+.color-1{
+    background-color: rgba(109, 0, 26, 1);
+}
+
+.color-2{
+    background-color: rgba(190, 0, 57, 1);
+}
+
+.color-3{
+    background-color: rgba(255, 69, 0, 1);
+}
+
+.color-4{
+    background-color:rgba(255, 168, 0, 1)
+}
+
+.color-5{
+    background-color:rgba(255, 214, 53, 1)
+}
+
+.color-6{
+    background-color:rgba(255, 248, 184, 1)
+}
+.color-7{
+    background-color:rgba(0, 163, 104, 1)
+}
+.color-8{
+    background-color:rgba(0, 204, 120, 1)
+}
+.color-9{
+    background-color:rgba(126, 237, 86, 1)
+}
+.color-10{
+    background-color:rgba(0, 117, 111, 1)
+}
+.color-11{
+    background-color:rgba(0, 158, 170, 1)
+}
+.color-12{
+    background-color:rgba(0, 204, 192, 1)
+}
+.color-13{
+    background-color:rgba(36, 80, 164, 1)
+}
+.color-14{
+    background-color:rgba(54, 144, 234, 1)
+}
+.color-15{
+    background-color:rgba(81, 233, 244, 1)
+}
+.color-16{
+    background-color:rgba(73, 58, 193, 1)
+}
+.color-17{
+    background-color:rgba(106, 92, 255, 1)
+}
+.color-18{
+    background-color:rgba(148, 179, 255, 1)
+}
+.color-19{
+    background-color:rgba(129, 30, 159, 1)
+}
+.color-20{
+    background-color:rgba(180, 74, 192, 1)
+}
+.color-21{
+    background-color:rgba(228, 171, 255, 1)
+}
+.color-22{
+    background-color:rgba(222, 16, 127, 1)
+}
+.color-23{
+    background-color:rgba(255, 56, 129, 1)
+}
+color-24{
+    background-color:rgba(255, 153, 170, 1)
+}
+color-25{
+    background-color:rgba(109, 72, 47, 1)
+}
+color-26{
+    background-color:rgba(156, 105, 38, 1)
+}
+color-27{
+    background-color:rgba(255, 180, 112, 1)
+}
+color-28{
+    background-color:rgba(0, 0, 0, 1)
+}
+color-29{
+    background-color:rgba(81, 82, 82, 1)
+}
+color-30{
+    background-color:rgba(137, 141, 144, 1)
+}
+color-31{
+    background-color:rgba(212, 215, 217, 1)
+}
+color-32{
+    background-color:rgba(255, 255, 255, 1)
+}
