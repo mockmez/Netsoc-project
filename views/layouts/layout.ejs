@@ -6,7 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <% if (typeof page === 'undefined') { %>
     <%- include('../partials/headers.ejs')%>
+    <% } %>
     <%- body %>
 </body>
 </html>
