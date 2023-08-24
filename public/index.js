@@ -28,6 +28,9 @@ for(let i = 0; i < tile_count_y; i++){
     }
 }
 
+console.log('Initial size: ')
+console.log(tile_arr.length)
+
 //Cursor
 
 const cursor = new Cursor(tile_width, tile_height, 'white')

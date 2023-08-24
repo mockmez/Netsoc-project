@@ -4,8 +4,9 @@
 int main(){
     FILE* fptr;
 
-    int image_width = 16;
-    int image_height = 9;
+    int resolution_factor = 2;
+    int image_width = 16 * resolution_factor;
+    int image_height = 9 * resolution_factor;
 
     if((fptr = fopen("public/image.json", "w+")) == NULL){
         printf("File creation failed");

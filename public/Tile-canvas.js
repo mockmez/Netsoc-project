@@ -20,6 +20,10 @@ class Tile{
         return this.y + (this.height/2);
     }
 
+    setColour(color){
+        this.color = color
+    }
+
 }
 
 class Cursor{
