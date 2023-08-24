@@ -1,3 +1,4 @@
 package-lock.json
 runthis.exe
 .env
+node_modules
