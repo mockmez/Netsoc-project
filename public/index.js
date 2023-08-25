@@ -18,13 +18,14 @@ const tile_height = tile_canvas.height / tile_count_y
 //Tile canvas
 
 const tile_arr = []
-
+let temp_size = 0
 for(let i = 0; i < tile_count_y; i++){
     for(let j = 0; j < tile_count_x; j++){
         tile_arr.push(new Tile(j*tile_width, i*tile_height, tile_width, tile_height, 
             `rgba(${Math.random()*256}, 
             ${Math.random()*256}, 
-            ${Math.random()*256}, 1)`))
+            ${Math.random()*256}, 1)`,
+            temp_size++))
     }
 }
 

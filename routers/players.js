@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const fs = require('fs')
 
 router.get('/', (req, res) =>{
     
@@ -14,7 +15,23 @@ router.get('/', (req, res) =>{
             console.log(`Chat message: ${arg}`)
         })
 
+        socket.on('color-change', (arg) =>{
+            console.log(arg)
+            console.log('Test point 2')
+            let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
+            console.log('Data reached backend')
+            data['Image'][arg['index']]['red'] = arg['color']['red']
+            data['Image'][arg['index']]['blue'] = arg['color']['blue']
+            data['Image'][arg['index']]['green'] = arg['color']['green']
+            fs.writeFileSync('./public/image.json', JSON.stringify(data))
+
+            io.emit('client-change', arg)
+
+        })
+
     })
+
+    
 
 })
 
