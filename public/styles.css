@@ -1,10 +1,15 @@
 body {
-    /* margin: 0;
-    padding: 0; */
+    margin: 0;
+    padding: 0;
     overflow: hidden;
     background-color: black;
     transform-origin: center center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
+
 
 #tileCanvas {
     position: absolute;
@@ -15,132 +20,223 @@ body {
     border-radius: 10px;
 }
 
-#color-palette{
-    position: fixed;
-    margin-left: auto;
-    top: 590px;
-    left: 250px;
-    width: 1000px;
-    height: 200px;
-    image-rendering: pixelated;
-    border-radius: 20px;
+.container{
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end; /* Align the container at the bottom */
+    align-items: center; /* Center horizontally */
+    transform: translateY(calc(80vh - 20px));
 }
 
-.color-box{
-    width: 100px;
-    height: 100px;
-    display: inline-block;
-    margin: 10px;
-    border: 1px solid #000;
-    border-radius: 20%;
-}
-
-.selected-color{
-    width: 100px;
-    height: 100px;
+.color-palette {
+    display: grid;
+    z-index: 0;
     position: relative;
-    display: inline-block;
-    background-color:rgba(255, 255, 255, 1)
+    grid-template-columns: repeat(16, 50px); /* 3 columns, each 100px wide */
+    grid-template-rows: repeat(2, 50px); /* 2 rows, each 100px high */
+    grid-gap: 5px; /* Gap between cells */
+    grid-template-areas:
+        "col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9 col-10 col-11 col-12 col-13 col-14 col-15 col-16 sel-col"
+        "col-17 col-18 col-19 col-20 col-21 col-22 col-23 col-24 col-25 col-26 col-27 col-28 col-29 col-30 col-31 col-32 sel-col"
+        "custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn custom-btn sel-col";
 }
 
-.color-1{
-    background-color: rgba(109, 0, 26, 1);
+.color-palette > * {
+    width: 50px;
+    height: 50px;
+    padding:0%
 }
 
-.color-2{
-    background-color: rgba(190, 0, 57, 1);
+.col-1 {
+    grid-area: col-1;
+    background-color: #ff5733;
 }
 
-.color-3{
-    background-color: rgba(255, 69, 0, 1);
+.col-2 {
+    grid-area: col-2;
+    background-color: #33ff57;
 }
 
-.color-4{
-    background-color:rgba(255, 168, 0, 1)
+.col-3 {
+    grid-area: col-3;
+    background-color: #5733ff;
 }
 
-.color-5{
-    background-color:rgba(255, 214, 53, 1)
+.col-4 {
+    grid-area: col-4;
+    background-color: #ffd933;
 }
 
-.color-6{
-    background-color:rgba(255, 248, 184, 1)
+.col-5 {
+    grid-area: col-5;
+    background-color: #33d9ff;
 }
-.color-7{
-    background-color:rgba(0, 163, 104, 1)
+
+.col-6 {
+    grid-area: col-6;
+    background-color: #ff33d9;
 }
-.color-8{
-    background-color:rgba(0, 204, 120, 1)
+
+.col-7 {
+    grid-area: col-7;
+    background-color: #ff33d9;
 }
-.color-9{
-    background-color:rgba(126, 237, 86, 1)
+
+.col-8 {
+    grid-area: col-8;
+    background-color: #ff33d9;
 }
-.color-10{
-    background-color:rgba(0, 117, 111, 1)
+
+.col-9 {
+    grid-area: col-9;
+    background-color: #ff33d9;
 }
-.color-11{
-    background-color:rgba(0, 158, 170, 1)
+
+.col-10 {
+    grid-area: col-10;
+    background-color: #ff33d9;
 }
-.color-12{
-    background-color:rgba(0, 204, 192, 1)
+
+.col-11 {
+    grid-area: col-11;
+    background-color: #ff33d9;
 }
-.color-13{
-    background-color:rgba(36, 80, 164, 1)
+
+.col-12 {
+    grid-area: col-12;
+    background-color: #ff33d9;
 }
-.color-14{
-    background-color:rgba(54, 144, 234, 1)
+
+.col-13 {
+    grid-area: col-13;
+    background-color: #ff33d9;
 }
-.color-15{
-    background-color:rgba(81, 233, 244, 1)
+
+.col-14 {
+    grid-area: col-14;
+    background-color: #ff33d9;
 }
-.color-16{
-    background-color:rgba(73, 58, 193, 1)
+
+.col-15 {
+    grid-area: col-15;
+    background-color: #ff33d9;
 }
-.color-17{
-    background-color:rgba(106, 92, 255, 1)
+
+.col-16 {
+    grid-area: col-16;
+    background-color: #ff33d9;
 }
-.color-18{
-    background-color:rgba(148, 179, 255, 1)
+
+.col-17 {
+    grid-area: col-17;
+    background-color: #ff33d9;
 }
-.color-19{
-    background-color:rgba(129, 30, 159, 1)
+
+.col-18 {
+    grid-area: col-18;
+    background-color: #ff33d9;
 }
-.color-20{
-    background-color:rgba(180, 74, 192, 1)
+
+.col-19 {
+    grid-area: col-19;
+    background-color: #ff33d9;
 }
-.color-21{
-    background-color:rgba(228, 171, 255, 1)
+
+.col-20 {
+    grid-area: col-20;
+    background-color: #ff33d9;
 }
-.color-22{
-    background-color:rgba(222, 16, 127, 1)
+
+.col-21 {
+    grid-area: col-21;
+    background-color: #ff33d9;
 }
-.color-23{
-    background-color:rgba(255, 56, 129, 1)
+
+.col-22 {
+    grid-area: col-22;
+    background-color: #ff33d9;
 }
-color-24{
-    background-color:rgba(255, 153, 170, 1)
+
+.col-23 {
+    grid-area: col-23;
+    background-color: #ff33d9;
 }
-color-25{
-    background-color:rgba(109, 72, 47, 1)
+
+.col-24 {
+    grid-area: col-24;
+    background-color: #ff33d9;
 }
-color-26{
-    background-color:rgba(156, 105, 38, 1)
+
+.col-25 {
+    grid-area: col-25;
+    background-color: #ff33d9;
 }
-color-27{
-    background-color:rgba(255, 180, 112, 1)
+
+.col-26 {
+    grid-area: col-26;
+    background-color: #ff33d9;
 }
-color-28{
-    background-color:rgba(0, 0, 0, 1)
+
+.col-27 {
+    grid-area: col-27;
+    background-color: #ff33d9;
 }
-color-29{
-    background-color:rgba(81, 82, 82, 1)
+
+.col-28 {
+    grid-area: col-28;
+    background-color: #ff33d9;
 }
-color-30{
-    background-color:rgba(137, 141, 144, 1)
+
+.col-29 {
+    grid-area: col-29;
+    background-color: #ff33d9;
 }
-color-31{
-    background-color:rgba(212, 215, 217, 1)
+
+.col-30 {
+    grid-area: col-30;
+    background-color: #ff33d9;
 }
-color-32{
-    background-color:rgba(255, 255, 255, 1)
+
+.col-31 {
+    grid-area: col-31;
+    background-color: #ff33d9;
+}
+
+.col-32 {
+    grid-area: col-32;
+    background-color: #ff33d9;
+}
+
+.sel-col {
+    grid-area: sel-col;
+    background-color: rebeccapurple; /* Default selected color */
+    grid-row-start: 1;
+    grid-row-end: 2;
+    height: 160px;
+    width: 50px;
+}
+
+.custom_btn{
+    grid-area: custom-btn;
+    width: 875px;
+    height: 50px;
+    background-color:aliceblue;
+}
+
+@media (max-width: 768px) {
+    .color-palette {
+        grid-template-columns: repeat(2, 100px);
+        grid-template-areas:
+            "col-1 col-2 sel-col"
+            "col-3 col-4 sel-col"
+            "col-5 col-6 sel-col";
+    }
+
+    .sel-col {
+        grid-area: sel-col;
+        background-color: rebeccapurple;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        height: 120px;
+    }
 }

@@ -17,9 +17,9 @@ fetch('http://localhost:3000/image.json')
     }
 
     socket.on('client-change', (message) =>{
-        // data['Image'][message['index']]['red'] = message['color']['red']
-        // data['Image'][message['index']]['green'] = message['color']['green']
-        // data['Image'][message['index']]['blue'] = message['color']['blue']
+        data['Image'][message['index']]['red'] = message['color']['red']
+        data['Image'][message['index']]['green'] = message['color']['green']
+        data['Image'][message['index']]['blue'] = message['color']['blue']
         tile_arr[message['index']].setColour(`rgba(${message['color']['red']}, ${message['color']['green']}, ${message['color']['blue']}, 1)`)
     })
 
