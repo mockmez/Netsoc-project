@@ -1,0 +1,10 @@
+<h2>User Login</h2>
+<body>
+    <form action="/users/login" method="POST">
+        <label for="username">Name: </label>
+        <input type="text" id = "username" name = "username" value="<%= user.name %>" required><br><br>
+        <label for="password" method="POST"> Password: </label>
+        <input type="password" id = "password" name = "password" value="<%= user.password %>" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>

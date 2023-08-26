@@ -6,7 +6,6 @@ const http = require('http')
 const server = http.createServer(app)
 const {Server} = require('socket.io')
 const io = new Server(server)
-
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
