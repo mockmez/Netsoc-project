@@ -8,10 +8,15 @@ const {Server} = require('socket.io')
 const io = new Server(server)
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
+// const session = require('express-session')
+// const passport = require('passport')
+// const LocalStrategy = require('passport-local').Strategy
 
 const mongoose = require('mongoose')
 
+app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
+
+//Connecting to Database
 mongoose.connect(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -27,6 +32,21 @@ db.once('open', () =>{
     console.log('Connected to MongoDB')
 })
 
+//Initialize passport
+// app.use(passport.initialize())
+// app.use(passport.session())
+
+// passport.use(new LocalStrategy(
+//     (username, password, done) =>{
+        
+//     }
+// ))
+
+// passport.serializeUser((user, done) =>{
+//     done(null, user.id)
+// })
+
+//Setting views
 const expressLayouts = require('express-ejs-layouts')
 
 app.set('view engine', 'ejs')
@@ -38,6 +58,7 @@ app.set('io', io)
 app.use(expressLayouts)
 app.use(express.static('public'))
 
+//Importing and using routers
 const indexRouter = require('./routers/index')
 const userRouter = require('./routers/users')
 const playerRouter = require('./routers/players')

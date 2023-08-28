@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-const users = []
 
 const userRegisterSchema = require('../model/users')
 const userLoginSchema = require('../model/login')
@@ -19,17 +18,16 @@ router.get('/new', (req, res) =>{
 router.post('/new', async (req, res) =>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
+        var newUser = new userRegisterSchema({
             name: req.body.username,
             password: hashedPassword,
             email: req.body.email
         })
+        newUser.save()
         res.redirect('/')
     }catch{
         res.redirect('/')
     }
-
-    console.log(users[0].password)
 
 })
 
@@ -38,9 +36,22 @@ router.get('/login', (req, res) =>{
 })
 
 router.post('/login', bodyParser.json(), (req, res) =>{
+    userLoginSchema.findOne({name, password}, 'name password', (err, user) =>{
+        if(err){
+            console.error(error)
+            return res.send('Internal Server Error(500)')
+        }
+        
+        if(!user){
+            return res.send('Invalid user credentials')
+        }
+        else{
+            return res.send('POST SUCCESSFULLY CALLED!')
+        }
+
+    })
     res.send('POST called')
     console.log(req.body.username)
-    console.log(req.body.password)
 })
 
 module.exports = router
