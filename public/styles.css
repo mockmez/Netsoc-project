@@ -1,19 +1,23 @@
 body {
-    margin: 0;
+    /* margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: black;
     transform-origin: center center;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 0; */
+    z-index: -1;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
     background-color: white;
 }
 
 
 #tileCanvas {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     image-rendering: pixelated;
     transform-origin: center center;
     outline: 5px solid black;
@@ -30,7 +34,7 @@ body {
 
 .color-palette {
     display: grid;
-    z-index: 0;
+    z-index: 1;
     position: relative;
     grid-template-columns: repeat(16, 50px); /* 3 columns, each 100px wide */
     grid-template-rows: repeat(2, 50px); /* 2 rows, each 100px high */
