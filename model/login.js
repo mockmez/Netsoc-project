@@ -11,4 +11,4 @@ const userLoginSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("User_Login", userLoginSchema);
+module.exports = mongoose.model("_", userLoginSchema);

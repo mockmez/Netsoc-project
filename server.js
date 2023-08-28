@@ -8,10 +8,6 @@ const {Server} = require('socket.io')
 const io = new Server(server)
 const bodyParser = require('body-parser')
 
-// const session = require('express-session')
-// const passport = require('passport')
-// const LocalStrategy = require('passport-local').Strategy
-
 const mongoose = require('mongoose')
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
@@ -32,19 +28,6 @@ db.once('open', () =>{
     console.log('Connected to MongoDB')
 })
 
-//Initialize passport
-// app.use(passport.initialize())
-// app.use(passport.session())
-
-// passport.use(new LocalStrategy(
-//     (username, password, done) =>{
-        
-//     }
-// ))
-
-// passport.serializeUser((user, done) =>{
-//     done(null, user.id)
-// })
 
 //Setting views
 const expressLayouts = require('express-ejs-layouts')
