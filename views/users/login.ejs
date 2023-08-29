@@ -1,10 +1,38 @@
-<h2>User Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Bootstrap V5 with Sass</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
 <body>
-    <form action="/users/login" method="POST">
-        <label for="username">Name: </label>
-        <input type="text" id = "username" name = "username" value="<%= user.name %>" required><br><br>
-        <label for="password" method="POST"> Password: </label>
-        <input type="password" id = "password" name = "password" value="<%= user.password %>" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+
+      <!-- START THE FIRST PART -->
+
+      <section id="login-section" class="login-section">
+        <div class="login-form container">
+            <h2 class="display-2--login">Login</h2>
+            <form>
+                <div class="form-group--login">
+                  <label for="staticEmail" class="col-form-label" placeholder="Student ID">Student ID</label><br>
+                  <div class="ro">
+                    <input type="text" class="form-control" id="Email">
+                  </div>
+                </div>
+                <div class="form-group--login">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Username</label><br>
+                  <div class="co">
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                  </div>
+                </div>
+                <span class="display-2--login">
+                    <input type="submit" class="btn btn-primary btn-large btn-main--login">
+                </span>
+              </form>
+        </div>
+      </section>
+
+    <script src="./assets/js/bootstrap.bundle.js"></script>
 </body>
+</html>
