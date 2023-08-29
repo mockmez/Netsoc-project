@@ -1,12 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Bootstrap V5 with Sass</title>
-    <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark menu">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../images/netsoc.png" width = "69" height = "64.6" alt="Netsoc Logo Image">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log-in</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contribute</a>
+        </li>
+      </ul>
+      <button type="button" class="rounded-pill btn-rounded">Website</button>
+    </div>
+  </div>
+</nav>
 
       <!-- START THE FIRST PART -->
 
@@ -17,13 +39,13 @@
                 <div class="form-group--login">
                   <label for="staticEmail" class="col-form-label" placeholder="Student ID">Student ID</label><br>
                   <div class="ro">
-                    <input type="text" class="form-control" id="Email">
+                    <input type="text" class="form-control" id="email">
                   </div>
                 </div>
                 <div class="form-group--login">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Username</label><br>
+                  <label for="username" class="col-sm-2 col-form-label">Username</label><br>
                   <div class="co">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    <input type="text" class="form-control" id="username" placeholder="Username">
                   </div>
                 </div>
                 <span class="display-2--login">
@@ -33,6 +55,4 @@
         </div>
       </section>
 
-    <script src="./assets/js/bootstrap.bundle.js"></script>
-</body>
-</html>
+    <!-- <script src="./assets/js/bootstrap.bundle.js"></script> -->

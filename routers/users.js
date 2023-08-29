@@ -42,6 +42,7 @@ router.get('/login', (req, res) =>{
     res.render('users/login', {user: new userLoginSchema()})
 })
 
+
 router.post('/login', bodyParser.json(), async (req, res) =>{
     try{
         userRegisterSchema.findOne({name: req.body.username, password: req.body.password})

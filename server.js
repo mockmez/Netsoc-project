@@ -7,6 +7,7 @@ const server = http.createServer(app)
 const {Server} = require('socket.io')
 const io = new Server(server)
 const bodyParser = require('body-parser')
+const path = require('path')
 
 const mongoose = require('mongoose')
 
@@ -31,15 +32,15 @@ db.once('open', () =>{
 
 //Setting views
 const expressLayouts = require('express-ejs-layouts')
+app.use(expressLayouts)
 
 app.set('view engine', 'ejs')
-app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
+app.set('views', __dirname + '/views')
 
 app.set('io', io)
 
-app.use(expressLayouts)
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 
 //Importing and using routers
 const indexRouter = require('./routers/index')
