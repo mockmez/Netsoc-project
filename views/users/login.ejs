@@ -25,34 +25,32 @@
           <a class="nav-link" href="#">Contribute</a>
         </li>
       </ul>
-      <button type="button" class="rounded-pill btn-rounded">Website</button>
+      <a href="https://netsoc.com/"><button type="button" class="rounded-pill btn-rounded">Website</button></a>
     </div>
   </div>
 </nav>
 
-      <!-- START THE FIRST PART -->
+      <!-- START THE LOGIN PART -->
 
       <section id="login-section" class="login-section">
         <div class="login-form container">
             <h2 class="display-2--login">Login</h2>
-            <form>
+            <form action="/users/login" method="POST">
                 <div class="form-group--login">
-                  <label for="staticEmail" class="col-form-label" placeholder="Student ID">Student ID</label><br>
-                  <div class="ro">
-                    <input type="text" class="form-control" id="email">
+                  <label for="student_id" class="col-form-label" placeholder="Student ID">Student ID</label><br>
+                  <div>
+                    <input type="text" class="form-control" id="student_id" placeholder="Student ID" name="student_id" value="<%= user.student_number %>" requried>
                   </div>
                 </div>
                 <div class="form-group--login">
                   <label for="username" class="col-sm-2 col-form-label">Username</label><br>
-                  <div class="co">
-                    <input type="text" class="form-control" id="username" placeholder="Username">
+                  <div>
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="username" value="<%= user.name %>" required>
                   </div>
                 </div>
                 <span class="display-2--login">
-                    <input type="submit" class="btn btn-primary btn-large btn-main--login">
+                    <input type="submit" class="btn btn-primary btn-large btn-main--login" value="Submit">
                 </span>
               </form>
         </div>
       </section>
-
-    <!-- <script src="./assets/js/bootstrap.bundle.js"></script> -->

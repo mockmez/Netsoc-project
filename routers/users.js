@@ -21,8 +21,8 @@ router.post('/new', async (req, res) =>{
             if(!result){
                 var newUser = new userRegisterSchema({
                     name: req.body.username,
-                    password: req.body.password,
-                    email: req.body.email
+                    email: req.body.email,
+                    student_number: req.body.student_id
                 })
                 newUser.save()
                 res.redirect('/')
@@ -43,15 +43,15 @@ router.get('/login', (req, res) =>{
 })
 
 
-router.post('/login', bodyParser.json(), async (req, res) =>{
+router.post('/login', async (req, res) =>{
     try{
-        userRegisterSchema.findOne({name: req.body.username, password: req.body.password})
+        userRegisterSchema.findOne({name: req.body.username, student_number: req.body.student_id})
         .then((result) =>{
             if(result){
-                res.send(`Welcome ${result.name}`)
+                res.render('players/index', {data: req.body.username})
             }
             else{
-                res.send('No user found !')
+                res.redirect('login')
             }
         })
     }

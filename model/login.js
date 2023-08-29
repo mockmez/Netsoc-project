@@ -5,7 +5,7 @@ const userLoginSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password:{
+    student_number:{
         type: String,
         required: true
     }
