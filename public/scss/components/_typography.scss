@@ -1,0 +1,62 @@
+@use '../custom' as *;
+
+.display-2{
+    margin-bottom: 1rem;
+
+    &--intro{
+        display: inline-block;
+        font-weight: 500;
+        color: beige;
+        margin-top: 154px;
+    }
+
+    &--description{
+        font-size: 1.5rem;
+        display: block;
+        font-weight: 200;
+        text-transform: none;
+        color: beige;
+    }
+
+    &--login{
+        display: inline-block;
+        font-weight: 500;
+        color: beige;
+        margin-top: 10px;
+        font-size: 50px;
+    }
+
+}
+
+.login-form{
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-weight: 500;
+    color: beige;
+    margin-top: 50px;
+    background-color: $primary;
+    width: 500px;
+    height: 50%;
+    border-radius: 20px;
+
+    @include media-breakpoint-down(sm){
+        width: 90%;
+        margin-top: 0px;
+    }
+
+}
+
+.form-group{
+    &--login{
+        padding-bottom: 40px;
+        padding-top: 10px;
+    }
+}
+
+.netsoc-logo{
+    @include media-breakpoint-down(sm){
+        display: none;
+    }
+}

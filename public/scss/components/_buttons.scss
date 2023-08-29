@@ -1,0 +1,49 @@
+@use '../custom' as *;
+
+.btn-rounded{
+    
+    @include media-breakpoint-down(sm){
+        display: none;
+    }
+
+    position: relative;
+    padding: 0.9375rem 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    border: 0.1rem solid rgba($white, 0.6)
+
+}
+
+.btn-main{
+
+    position: relative;
+    font-weight: 500;
+    font-size: large;
+    margin-top: 27%;
+    margin-left: 13%;
+    border: 0.1rem solid rgba($gray-500, 0.6);
+    margin-bottom: 100%;
+    max-width: 200px;
+    max-height: 100px;
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &--login{
+    position: relative;
+    font-weight: 500;
+    font-size: large;
+    border: 0.1rem solid rgba($gray-500, 0.6);
+    margin-bottom: 10%;
+    max-width: 200px;
+    max-height: 100px;
+    margin-left: 60px !important;
+    margin-right: 60px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    }
+
+}

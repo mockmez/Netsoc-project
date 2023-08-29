@@ -1,0 +1,12 @@
+@use '../custom' as *;
+
+.form-box{
+    align-content: center;
+    top: 50%; 
+    left: 50%;
+    border: 5 px solid black;
+}
+
+.login-custom{
+    padding: 110px !important;
+}

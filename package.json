@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "compile:sass": "sass --watch public/scss:public/assets/css"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^10.4.15",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
@@ -19,6 +22,8 @@
     "mongoose": "^7.4.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "postcss-cli": "^10.1.0",
+    "sass": "^1.66.1",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
