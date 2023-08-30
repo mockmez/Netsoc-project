@@ -287,6 +287,7 @@ body {
         margin-bottom: 0px;
         padding-bottom: 0px;
         outline: black solid 0px;
+        transform-origin: center center;
     }
 
     .wrapper > .col-1 {

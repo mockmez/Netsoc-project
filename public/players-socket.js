@@ -4,13 +4,22 @@ console.log('frontend')
 
 function selectColor(element){
     const color = window.getComputedStyle(element).backgroundColor
-    console.log(color)
     const selectionDisplay = document.getElementById('selected-color')
     selectionDisplay.style.backgroundColor = color
 }
 
 function select_color_mobile(element){
+    console.log(window.getComputedStyle(element).backgroundColor)
+    console.log('Test')
     selectColor(element)
+    // element.style.background = `linear-gradient(to right, white, ${window.getComputedStyle(element).backgroundColor})`;
+    // console.log(window.getComputedStyle(element).backgroundColor)
+    const wrapperParent = document.getElementById('palette-wrapper')
+    const children = wrapperParent.children
+    for(let i = 0; i < children.length; i++){
+        children[i].style.transform = `scale(${1})`
+    }
+    element.style.transform = `scale(${0.8})`
 }
 
 function setColour(){

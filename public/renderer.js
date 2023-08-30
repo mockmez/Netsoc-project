@@ -1,8 +1,3 @@
-var image_json
-
-let k = 0;
-
-
 fetch('http://localhost:3000/image.json')
 .then(response => response.json())
 .then((data) =>{    
@@ -12,7 +7,6 @@ fetch('http://localhost:3000/image.json')
         let red = data['Image'][i]['red']
         let green = data['Image'][i]['green']
         let blue = data['Image'][i]['blue']
-        k++;
         tile_arr[i].setColour(`rgba(${red},${green},${blue}, 1)`)
     }
 
@@ -26,5 +20,4 @@ fetch('http://localhost:3000/image.json')
 })
 .catch((error) =>{
     console.log(error)
-    console.log(k)
 })

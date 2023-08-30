@@ -42,6 +42,8 @@ let currentScale = 1;
 let offsetX = 0;
 let offsetY = 0;
 let isDragging = false;
+let scale = 1;
+let lastScale = 1;
 
 document.addEventListener('wheel', (event) => {
     if (event.ctrlKey) {
@@ -57,7 +59,7 @@ document.addEventListener('wheel', (event) => {
     }
 }, { passive: false });
 
-tile_canvas.addEventListener('click', (event) =>{
+document.addEventListener('click', (event) =>{
     
     tile_arr.every((tile) =>{
         if((event.offsetX >= tile.x) && (event.offsetX <= tile.x + tile_width)){
@@ -73,7 +75,7 @@ tile_canvas.addEventListener('click', (event) =>{
 
 })
 
-tile_canvas.addEventListener('mousedown', (event) => {
+document.addEventListener('mousedown', (event) => {
     isDragging = true;
     startX = event.clientX;
     startY = event.clientY;
@@ -82,7 +84,7 @@ tile_canvas.addEventListener('mousedown', (event) => {
     tile_canvas.style.cursor = 'grabbing';
 });
 
-tile_canvas.addEventListener('touchstart', (event) => {
+document.addEventListener('touchstart', (event) => {
     if (event.touches.length === 1) {
         isDragging = true;
         const touch = event.touches[0];
@@ -125,6 +127,35 @@ function updateCanvasTransform() {
     const translateTransform = `translate(${offsetX}px, ${offsetY}px)`;
     tile_canvas.style.transform = `${scaleTransform} ${translateTransform}`;
 }
+
+document.addEventListener("touchstart", (event) => {
+    if (event.touches.length === 2) {
+      lastScale = scale; // Store the current scale factor
+    }
+  });
+  
+document.addEventListener("touchmove", (event) => {
+if (event.touches.length === 2) {
+    // Calculate the current pinch scale
+    const distance = Math.hypot(
+    event.touches[0].clientX - event.touches[1].clientX,
+    event.touches[0].clientY - event.touches[1].clientY);
+
+    scale = (distance / initialDistance) * lastScale;
+
+    // Apply the scale transformation
+    const offsetX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
+    const offsetY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+    scaleDiv.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    element.style.transform = `scale(${scale})`;
+    }
+});
+
+document.addEventListener("touchend", (event) => {
+if (event.touches.length < 2) {
+    lastScale = scale; // Store the last scale factor when pinch ends
+    }
+});
 
 // ANIMATION LOOP
 
