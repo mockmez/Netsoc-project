@@ -57,6 +57,22 @@ document.addEventListener('wheel', (event) => {
     }
 }, { passive: false });
 
+tile_canvas.addEventListener('click', (event) =>{
+    
+    tile_arr.every((tile) =>{
+        if((event.offsetX >= tile.x) && (event.offsetX <= tile.x + tile_width)){
+            if((event.offsetY >= tile.y) &&(event.offsetY <= tile.y + tile_height)){
+                cursor.setCoordinate(tile)
+                return false;
+            }
+        }
+
+        return true;
+
+    })
+
+})
+
 tile_canvas.addEventListener('mousedown', (event) => {
     isDragging = true;
     startX = event.clientX;

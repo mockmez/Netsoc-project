@@ -4,8 +4,13 @@ console.log('frontend')
 
 function selectColor(element){
     const color = window.getComputedStyle(element).backgroundColor
+    console.log(color)
     const selectionDisplay = document.getElementById('selected-color')
     selectionDisplay.style.backgroundColor = color
+}
+
+function select_color_mobile(element){
+    selectColor(element)
 }
 
 function setColour(){
