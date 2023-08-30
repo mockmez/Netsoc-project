@@ -46,6 +46,7 @@ let scale = 1;
 let lastScale = 1;
 
 document.addEventListener('wheel', (event) => {
+    
     if (event.ctrlKey) {
         event.preventDefault();
 
@@ -59,7 +60,7 @@ document.addEventListener('wheel', (event) => {
     }
 }, { passive: false });
 
-document.addEventListener('click', (event) =>{
+tile_canvas.addEventListener('click', (event) =>{
     
     tile_arr.every((tile) =>{
         if((event.offsetX >= tile.x) && (event.offsetX <= tile.x + tile_width)){
@@ -76,6 +77,9 @@ document.addEventListener('click', (event) =>{
 })
 
 document.addEventListener('mousedown', (event) => {
+    
+    //updateCanvasTransform()
+    
     isDragging = true;
     startX = event.clientX;
     startY = event.clientY;
@@ -96,14 +100,19 @@ document.addEventListener('touchstart', (event) => {
     }
 });
 
-document.addEventListener('mousemove', (event) => {
+tile_canvas.addEventListener('mousemove', (event) => {
     if (!isDragging) return;
 
+    //updateCanvasTransform();
+    
     const newX = offsetX + event.clientX - startX;
     const newY = offsetY + event.clientY - startY;
 
     tile_canvas.style.left = `${newX}px`;
     tile_canvas.style.top = `${newY}px`;
+
+    //updateCanvasTransform();
+
 });
 
 document.addEventListener('touchmove', (event) => {
@@ -120,11 +129,22 @@ document.addEventListener('touchmove', (event) => {
 document.addEventListener('mouseup', () => {
     isDragging = false;
     tile_canvas.style.cursor = 'grab';
+
+    //updateCanvasTransform()
+
 });
 
 function updateCanvasTransform() {
+    
+    const wrapperParent = document.getElementById('canvas-container')
+    
+    
+    var centerX = wrapperParent.getBoundingClientRect().left + (wrapperParent.getBoundingClientRect().width / 2);
+    var centerY = wrapperParent.getBoundingClientRect().top + (wrapperParent.getBoundingClientRect().top / 2);
+    
     const scaleTransform = `scale(${currentScale})`;
     const translateTransform = `translate(${offsetX}px, ${offsetY}px)`;
+    tile_canvas.style.transform = `${centerX} ${centerY}`
     tile_canvas.style.transform = `${scaleTransform} ${translateTransform}`;
 }
 
@@ -146,8 +166,8 @@ if (event.touches.length === 2) {
     // Apply the scale transformation
     const offsetX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
     const offsetY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
-    scaleDiv.style.transformOrigin = `${offsetX}px ${offsetY}px`;
-    element.style.transform = `scale(${scale})`;
+    tile_canvas.style.transformOrigin = `${offsetX}px ${offsetY}px`;
+    tile_canvas.style.transform = `scale(${scale})`;
     }
 });
 

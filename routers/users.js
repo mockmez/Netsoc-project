@@ -48,7 +48,7 @@ router.post('/login', async (req, res) =>{
         userRegisterSchema.findOne({name: req.body.username, student_number: req.body.student_id})
         .then((result) =>{
             if(result){
-                res.render('players/index', {data: req.body.username})
+                res.redirect('http://localhost:3000/players/')
             }
             else{
                 res.redirect('login')
