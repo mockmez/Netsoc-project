@@ -42,6 +42,7 @@ cursor.setCoordinate(tile_arr[0])
 
 let currentScale = 1;
 
+
 document.addEventListener('wheel', (event) =>{
     
     if(event.ctrlKey){
@@ -58,9 +59,10 @@ document.addEventListener('wheel', (event) =>{
             if(currentScale > 0.5)
             currentScale /= 1.05
         }
-    
-        tile_canvas.style.transform = `scale(${currentScale})`
-        tile_canvas.style.translate = `${offsetX}px ${offsetY}px`
+        
+        updateCanvasTransform(); 
+
+        tile_canvas.style.transform = `scale(${currentScale}) translate(${offsetX}px, ${offsetY}px)`;
     }
 
 }, {passive: false})
@@ -114,6 +116,11 @@ document.addEventListener('mouseup', () =>{
     tile_canvas.style.cursor = 'grab'
 })
 
+function updateCanvasTransform() {
+    const scaleTransform = `scale(${currentScale})`;
+    const translateTransform = `translate(${offsetX}px, ${offsetY}px)`;
+    tile_canvas.style.transform = `${scaleTransform} ${translateTransform}`;
+}
 
 //ANIMATION LOOP
 
