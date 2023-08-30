@@ -93,6 +93,10 @@ tile_canvas.addEventListener('mousedown', (event) =>{
     tile_canvas.style.cursor = 'grabbing'
 })
 
+tile_canvas.addEventListener('touchdown', (event) =>{
+
+})
+
 document.addEventListener('mousemove', (event) =>{
     if(!isDragging)
     return

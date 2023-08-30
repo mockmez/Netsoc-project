@@ -24,6 +24,10 @@ body {
     transform: translateY(calc(80vh - 20px));
 }
 
+.warp{
+    visibility: hidden;
+}
+
 .color-palette {
     display: grid;
     z-index: 1;
@@ -219,20 +223,52 @@ body {
     background-color:aliceblue;
 }
 
-@media (max-width: 768px) {
-    .color-palette {
-        grid-template-columns: repeat(2, 100px);
-        grid-template-areas:
-            "col-1 col-2 sel-col"
-            "col-3 col-4 sel-col"
-            "col-5 col-6 sel-col";
+@media (max-width: 576px) {
+    .container{
+        visibility: hidden;
     }
-
-    .sel-col {
-        grid-area: sel-col;
-        background-color: rebeccapurple;
-        grid-row-start: 1;
-        grid-row-end: 2;
-        height: 120px;
+    
+    .warp{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        bottom: 50px;
+        align-items: center;
+        
+    }
+    
+    .btn{
+        position: absolute;
+        width: 100%;
+        height: 50px;
+    }
+    
+    .wrapper{
+        max-height: 120px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    .wrapper::-webkit-scrollbar{
+        width: 0px;
+    }
+    
+    .wrapper .item{
+        min-width: 110px;
+        height: 110px;
+        line-height: 110px;
+        text-align: center;
+        background-color: beige;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
     }
 }

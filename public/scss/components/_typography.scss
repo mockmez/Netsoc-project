@@ -41,7 +41,7 @@
     height: 50%;
     border-radius: 20px;
 
-    @include media-breakpoint-down(sm){
+    @include media-breakpoint-down(lg){
         width: 90%;
         margin-top: 0px;
     }
@@ -56,7 +56,7 @@
 }
 
 .netsoc-logo{
-    @include media-breakpoint-down(sm){
+    @include media-breakpoint-down(lg){
         display: none;
     }
 }
