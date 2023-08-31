@@ -76,6 +76,22 @@ tile_canvas.addEventListener('click', (event) =>{
 
 })
 
+tile_canvas.addEventListener('touchstart', (event) =>{
+    
+    tile_arr.every((tile) =>{
+        if((event.offsetX >= tile.x) && (event.offsetX <= tile.x + tile_width)){
+            if((event.offsetY >= tile.y) &&(event.offsetY <= tile.y + tile_height)){
+                cursor.setCoordinate(tile)
+                return false;
+            }
+        }
+
+        return true;
+
+    })
+
+})
+
 document.addEventListener('mousedown', (event) => {
     
     //updateCanvasTransform()
