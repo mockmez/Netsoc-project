@@ -1,6 +1,10 @@
+require('dotenv').config({path: './.env'})
+
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
+
+const adminLoginSchema = require('../model/admin')
 
 router.get('/', (req, res) =>{
     
@@ -35,6 +39,16 @@ router.get('/', (req, res) =>{
 
 })
 
+router.get('/auth', (req, res) =>{
+    res.render('players/auth', {admin: new adminLoginSchema()})
+})
+
+router.post('/auth', (req, res) =>{
+    if(req.body.name === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PASSWORD){
+        res.render(process.env.ADMIN_URL)
+    }
+})
+
 router.get('js-files', (req, res) =>{
     res.setHeader('Content-Type', 'application/javascript')
     res.sendFile(path.join(__dirname, '../..public', 'players-socket.js'))
@@ -53,6 +67,12 @@ router.get('css-files', (req, res) =>{
 router.get('image.json', (req, res) =>{
     res.setHeader('Content-Type', 'application/json')
     res.sendFile(path.join(__dirname, '../..public', 'image.json'))
+})
+
+router.post('/changeCanvas', (req, res) =>{
+    const newData = req.body
+    fs.writeFileSync('./public/image-json', JSON.stringify(newData))
+    res.json({message: 'Data overwritten succesfully'})
 })
 
 module.exports = router
