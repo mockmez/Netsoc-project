@@ -60,4 +60,12 @@ router.post('/login', async (req, res) =>{
     }
 })
 
+router.get('/info', (req, res) =>{
+    res.render('users/info')
+})
+
+router.get('/contribute', (req, res) =>{
+    res.render('users/contribute')
+})
+
 module.exports = router
