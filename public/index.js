@@ -131,7 +131,7 @@ tile_canvas.addEventListener('mousemove', (event) => {
 
 });
 
-document.addEventListener('touchmove', (event) => {
+tile_canvas.addEventListener('touchmove', (event) => {  //Moving
     if (!isDragging || event.touches.length !== 1) return;
 
     const touch = event.touches[0];
@@ -170,7 +170,7 @@ document.addEventListener("touchstart", (event) => {
     }
   });
   
-document.addEventListener("touchmove", (event) => {
+document.addEventListener("touchmove", (event) => {     //Pinching
 if (event.touches.length === 2) {
     // Calculate the current pinch scale
     const distance = Math.hypot(
