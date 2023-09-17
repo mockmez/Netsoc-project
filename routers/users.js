@@ -11,35 +11,6 @@ router.get('/', checkAuthenticated, (req, res) =>{
     res.render('users/index')
 })
 
-router.get('/new', (req, res) =>{
-    res.render('users/new', {user: new userRegisterSchema()})
-})
-
-router.post('/new', async (req, res) =>{
-    try{
-        userRegisterSchema.findOne({name: req.body.username, email: req.body.email})
-        .then((result) =>{
-            if(!result){
-                var newUser = new userRegisterSchema({
-                    name: req.body.username,
-                    email: req.body.email,
-                    student_number: req.body.student_id,
-                    timestamp: Date.now() - (3600 * 1000)
-                })
-                newUser.save()
-                res.redirect('/')
-            }
-            else{
-                res.redirect('/')
-            }
-        })
-    }catch(error){
-        console.log(error)
-        res.redirect('/')
-    }
-
-})
-
 router.get('/login', checkNotAuthenticated, (req, res) =>{
     res.render('users/login', {user: new userLoginSchema()})
 })

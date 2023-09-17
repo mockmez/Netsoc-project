@@ -40,6 +40,11 @@ const store = new mongoStore({
     collectionName: 'user_sess'
 })
 
+const admin_store = new mongoStore({
+    mongoUrl: process.env.DATABASE_URI,
+    collectionName: 'admin_sess'
+})
+
 store.on('error', (error) =>{
     console.log('Store errror: ', error)
 })
@@ -61,17 +66,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Connecting socket io with express
-
-// io.engine.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     store: store,
-//     cookie: {
-//         maxAge: 1000 * 60 * 60
-//     }
-// }))
 
 //Setting views
 const expressLayouts = require('express-ejs-layouts')
@@ -87,10 +81,12 @@ app.use(express.static(__dirname + '/public'))
 const indexRouter = require('./routers/index')
 const userRouter = require('./routers/users')
 const playerRouter = require('./routers/players')(io)
+const adminRouter = require('./routers/admin')
 
 app.use('/', indexRouter)
 app.use('/users', userRouter)
 app.use('/players', playerRouter)
+app.use('/admin', adminRouter)
 
 server.listen(process.env.PORT || 3000, () =>{
     console.log(`Process listening on 3000`)

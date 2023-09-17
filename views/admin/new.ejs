@@ -1,0 +1,12 @@
+<h2>Users Index Page</h2>
+<body>
+    <form action = "/admin/new" method = "POST">
+        <label for="username">Username:</label>
+        <input type="text" id = "username" name = "username" value="<%= user.name %>" required><br><br>
+        <label for="email">E-Mail</label>
+        <input type="email" id = "email" name = "email" value="<%= user.email %>" required><br><br>
+        <label for="student_id">Student ID</label>
+        <input type="text" id = "student_id" name = "student_id" value="<%= user.student_number %>" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>

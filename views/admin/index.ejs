@@ -1,0 +1,9 @@
+<h2>ADMIN</h2>
+
+<form action="/admin/" method="POST">
+  <label for="username">name:</label><br>
+  <input type="text" id="username" name="username" value="<%= admin.name %>" required><br>
+  <label for="student_id">password:</label><br>
+  <input type="password" id="password" name="student_id" value="<%= admin.password %>" required><br><br>
+  <input type="submit" value="Submit">
+</form>

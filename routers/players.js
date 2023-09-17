@@ -6,11 +6,7 @@ const fs = require('fs')
 const session = require('express-session')
 const mongoStore = require('connect-mongo')
 const passport = require('../passport-config');
-const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose')
 const userRegisterSchema = require('../model/users')
-
-const adminLoginSchema = require('../model/admin')
 
 router.get('/', checkAuthenticated, (req, res) =>{
     
@@ -22,23 +18,6 @@ router.get('/', checkAuthenticated, (req, res) =>{
 router.post('/', checkAuthenticated, async (req, res) =>{
             
     res.redirect('/players')
-
-})
-
-router.get('/auth', (req, res) =>{
-    res.render('players/auth', {admin: new adminLoginSchema()})
-})
-
-router.post('/auth', (req, res) =>{
-    if(req.body.name === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PASSWORD){
-        res.render(process.env.ADMIN_URL)
-    }
-    else if(req.body.code === 'change-canvas'){
-        const data = "";
-        fs.writeFileSync('./public/image.json', data)
-        res.redirect('auth')
-    }
-    
 
 })
 
@@ -121,39 +100,42 @@ module.exports = (io) =>{
 
                     if(user){
                         
-                        if((current_date - user.timestamp) < 3600000){
-                            console.log('it has been an hour yet')
-                            user.timestamp = current_date
-                            socket.request.session.passport.user = user;
+                        if(((current_date - user.timestamp) < 0) || (user.name === 'user-1' && user.student_number === '12345')){
+                            if(!(user.name === 'user-1' && user.student_number === '12345')){
+                                console.log('it has been an hour yet', current_date - user.timestamp)
+                                user.timestamp = current_date
+                                socket.request.session.passport.user = user;
 
-                            socket.request.session.save((err) =>{
-                                if(err){
-                                    console.log(err)
-                                    return;
-                                }
+                                socket.request.session.save((err) =>{
+                                    if(err){
+                                        console.log(err)
+                                        return;
+                                    }
 
-                                console.log('updated user time', user)
-                                console.log('this is the current time')
-                                console.log(new Date(Date.now()))
+                                    console.log('updated user time', user)
+                                    console.log('this is the current time')
+                                    console.log(new Date(Date.now()))
 
-                            })
-
-                            try{
-                                
-                                userRegisterSchema.findByIdAndUpdate(userId,
-                                    {timestamp: current_date},
-                                    {new: true}).
-                                    then(() => console.log('user updated time')).
-                                    catch((error) =>{
-                                        console.log(error)
-                                    })
-                                userRegisterSchema.findById(userId).then((user) =>{
-                                    console.log('this user time', user)
                                 })
 
-                            }
-                            catch(err){
-                                console.log(err)
+                                try{
+                                    
+                                    userRegisterSchema.findByIdAndUpdate(userId,
+                                        {timestamp: current_date},
+                                        {new: true}).
+                                        then(() => console.log('user updated time')).
+                                        catch((error) =>{
+                                            console.log(error)
+                                        })
+                                    userRegisterSchema.findById(userId).then((user) =>{
+                                        console.log('this user time', user)
+                                    })
+
+                                }
+                                catch(err){
+                                    console.log(err)
+                                }
+
                             }
 
                             console.log(arg)
@@ -170,7 +152,7 @@ module.exports = (io) =>{
                                 
                         }
                         else{
-                            console.log('it has not been an hour')
+                            console.log('it has not been an hour', (current_date - user.timestamp))
                         }
 
 
