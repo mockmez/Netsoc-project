@@ -4,6 +4,5 @@ runthis.exe
 node_modules
 public/assets/css
 views/players/auth.ejs
-model/admin.js
 views/players
 .vscode
