@@ -1,4 +1,4 @@
-fetch('http://localhost:3000/image.json')
+fetch('/image.json')
 .then(response => response.json())
 .then((data) =>{    
     
