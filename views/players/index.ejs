@@ -51,10 +51,11 @@
             <div class="col-31" onclick="selectColor(this)"></div>
             <div class="col-32" onclick="selectColor(this)"></div>
             <div class="sel-col" id="selected-color"></div>
-            <button class="custom_btn" onclick="setColour()">Place Tile</div>
+            <form action="/players/" method="POST" id="tileForm" class="custom_btn">
+                <button style="flex-grow: 1;" onclick="document.getElementById('tileForm').submit();" type="button">Place Tile</button>
+            </form>
+              
         </div>
-    </div>
-
     </div>
 
     <div class="warp">
@@ -92,7 +93,9 @@
             <div class="col-31" onclick= "select_color_mobile(this)"></div>
             <div class="col-32" onclick= "select_color_mobile(this)"></div>
         </div>
-        <button type="button" class="btn" onclick="setColour()">Place tile</button>
+        <form action="/players/" method="POST" id="tileForm" class="btn">
+                <button style="flex-grow: 1;" onclick="document.getElementById('tileForm').submit();" type="button">Place Tile</button>
+            </form>
     </div>
 
     

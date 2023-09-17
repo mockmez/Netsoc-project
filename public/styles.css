@@ -228,6 +228,9 @@ body {
     width: 100%; /* Ensure the button spans the entire container width */
     height: 50px;
     background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .warp{
@@ -258,6 +261,12 @@ body {
         position: absolute;
         width: 100%;
         height: 50px;
+        width: 100%; /* Ensure the button spans the entire container width */
+        height: 50px;
+        background-color: aliceblue;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
     
     .wrapper{

@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-
+const passport = require('passport')
+const methodOverride = require('method-override')
 
 const userRegisterSchema = require('../model/users')
 const userLoginSchema = require('../model/login')
 const bodyParser = require('body-parser')
 
-router.get('/', (req, res) =>{
+router.get('/', checkAuthenticated, (req, res) =>{
     res.render('users/index')
 })
 
@@ -22,7 +23,8 @@ router.post('/new', async (req, res) =>{
                 var newUser = new userRegisterSchema({
                     name: req.body.username,
                     email: req.body.email,
-                    student_number: req.body.student_id
+                    student_number: req.body.student_id,
+                    timestamp: Date.now() - (3600 * 1000)
                 })
                 newUser.save()
                 res.redirect('/')
@@ -38,26 +40,22 @@ router.post('/new', async (req, res) =>{
 
 })
 
-router.get('/login', (req, res) =>{
+router.get('/login', checkNotAuthenticated, (req, res) =>{
     res.render('users/login', {user: new userLoginSchema()})
 })
 
 
-router.post('/login', async (req, res) =>{
-    try{
-        userRegisterSchema.findOne({name: req.body.username, student_number: req.body.student_id})
-        .then((result) =>{
-            if(result){
-                res.redirect('http://localhost:3000/players/')
-            }
-            else{
-                res.redirect('login')
-            }
-        })
-    }
-    catch(error){
-        console.log(error)
-    }
+router.post('/login', checkNotAuthenticated, passport.authenticate('local',{
+    failureRedirect: 'users/login',
+    successRedirect: '/users/'
+}))
+
+router.post('/logout', checkAuthenticated, (req, res) =>{
+    req.logout((err) =>{
+        if(err)
+        console.log(err)
+    })
+    res.redirect('/')
 })
 
 router.get('/info', (req, res) =>{
@@ -67,5 +65,23 @@ router.get('/info', (req, res) =>{
 router.get('/contribute', (req, res) =>{
     res.render('users/contribute')
 })
+
+function checkAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        next()
+    }
+    else{
+        res.redirect('/users/login')
+    }
+}
+
+function checkNotAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/')
+    }
+    else{
+        next()
+    }
+}
 
 module.exports = router

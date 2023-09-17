@@ -1,4 +1,5 @@
-const socket = io()
+const socket = io('/players')
+
 socket.emit('chat message', "This is a test message")
 console.log('frontend')
 
@@ -25,7 +26,7 @@ function setColour(){
     console.log('test message')
 
     const color = window.getComputedStyle(document.getElementById('selected-color')).backgroundColor
-    cursor.getTile().setColour(color)
+    //cursor.getTile().setColour(color)
     
     const rgbaString = color
     const regExRGBA = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/
@@ -52,3 +53,9 @@ function setColour(){
         console.log('No match')
     }
 }
+
+window.addEventListener('beforeunload', () => {
+    if (socket) {
+      socket.disconnect();
+    }
+  });

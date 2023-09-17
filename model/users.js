@@ -12,6 +12,10 @@ const userRegisterSchema = new mongoose.Schema({
     student_number:{
         type: String,
         required: true
+    },
+    timestamp:{
+        type: Date,
+        required: true
     }
 
 })

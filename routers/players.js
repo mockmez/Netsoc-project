@@ -3,39 +3,24 @@ require('dotenv').config({path: './.env'})
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
+const session = require('express-session')
+const mongoStore = require('connect-mongo')
+const passport = require('../passport-config');
+const LocalStrategy = require('passport-local').Strategy;
+
 
 const adminLoginSchema = require('../model/admin')
 
-router.get('/', (req, res) =>{
+router.get('/', checkAuthenticated, (req, res) =>{
     
-    const io = req.app.get('io')
-
+    console.log(req.user)
     res.render('players/index', {page: 'players'})
 
-    io.on('connection', (socket) =>{
-        console.log('User has connected to socket')
+})
 
-        socket.on('chat message', (arg) =>{
-            console.log(`Chat message: ${arg}`)
-        })
-
-        socket.on('color-change', (arg) =>{
-            console.log(arg)
-            console.log('Test point 2')
-            let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
-            console.log('Data reached backend')
-            data['Image'][arg['index']]['red'] = arg['color']['red']
-            data['Image'][arg['index']]['blue'] = arg['color']['blue']
-            data['Image'][arg['index']]['green'] = arg['color']['green']
-            fs.writeFileSync('./public/image.json', JSON.stringify(data))
-
-            io.emit('client-change', arg)
-
-        })
-
-    })
-
-    
+router.post('/', checkAuthenticated, async (req, res) =>{
+            
+    res.redirect('/players')
 
 })
 
@@ -76,4 +61,90 @@ router.get('image.json', (req, res) =>{
     res.sendFile(path.join(__dirname, '../..public', 'image-json.json'))
 })
 
-module.exports = router
+function checkAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        next()
+    }
+    else{
+        res.redirect('/users/login')
+    }
+}
+
+function checkNotAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/')
+    }
+    else{
+        next()
+    }
+}
+
+module.exports = (io) =>{
+    
+    const routerNameSpace = io.of('/players')
+
+    const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
+    
+    io.engine.use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        store: new mongoStore({
+            mongoUrl: process.env.DATABASE_URI,
+            collectionName: 'user_sess'
+        }),
+        cookie: {
+            maxAge: 1000 * 60 * 60
+        }
+    }))
+
+    io.use(wrap(passport.initialize()))
+    io.use(wrap(passport.session()))
+
+    routerNameSpace.on('connection', (socket) =>{
+        
+        console.log(socket.request.session)
+        
+        if (socket.request.session && socket.request.session.passport) {
+            const user = socket.request.session.passport.user;
+            console.log('Authenticated user:', user);
+            user.name = 'x'
+
+            socket.request.session.save((err) =>{
+                if(err)
+                console.log(err)
+            })
+
+        }
+        else{
+            console.log('error')
+        }
+    
+        socket.on('chat message', (arg) =>{
+            console.log(`Chat message: ${arg}`)
+        })
+    
+        socket.on('color-change', (arg) =>{
+            
+            console.log(arg)
+            console.log('Test point 2')
+            let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
+            console.log('Data reached backend')
+            data['Image'][arg['index']]['red'] = arg['color']['red']
+            data['Image'][arg['index']]['blue'] = arg['color']['blue']
+            data['Image'][arg['index']]['green'] = arg['color']['green']
+            fs.writeFileSync('./public/image.json', JSON.stringify(data))
+    
+            routerNameSpace.emit('client-change', arg)
+    
+        })
+    
+        socket.on('disconnect', () =>{
+            console.log('A user has disconnected')
+        })
+    
+    })
+    
+    
+    return router;
+}

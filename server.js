@@ -9,7 +9,13 @@ const io = new Server(server)
 const bodyParser = require('body-parser')
 const path = require('path')
 
+const userRegisterSchema = require('./model/users')
+
+const session = require('express-session')
+const passport = require('./passport-config')
+
 const mongoose = require('mongoose')
+const mongoStore = require('connect-mongo')
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
 
@@ -29,6 +35,43 @@ db.once('open', () =>{
     console.log('Connected to MongoDB')
 })
 
+const store = new mongoStore({
+    mongoUrl: process.env.DATABASE_URI,
+    collectionName: 'user_sess'
+})
+
+store.on('error', (error) =>{
+    console.log('Store errror: ', error)
+})
+
+store.once('open', () =>{
+    console.log('Connected store for sessions')
+})
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+    cookie: {
+        maxAge: 1000 * 60 * 60
+    }
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+//Connecting socket io with express
+
+// io.engine.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     store: store,
+//     cookie: {
+//         maxAge: 1000 * 60 * 60
+//     }
+// }))
 
 //Setting views
 const expressLayouts = require('express-ejs-layouts')
@@ -38,14 +81,12 @@ app.set('view engine', 'ejs')
 app.set('layout', 'layouts/layout')
 app.set('views', __dirname + '/views')
 
-app.set('io', io)
-
 app.use(express.static(__dirname + '/public'))
 
 //Importing and using routers
 const indexRouter = require('./routers/index')
 const userRouter = require('./routers/users')
-const playerRouter = require('./routers/players')
+const playerRouter = require('./routers/players')(io)
 
 app.use('/', indexRouter)
 app.use('/users', userRouter)
