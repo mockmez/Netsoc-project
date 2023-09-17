@@ -7,7 +7,7 @@ tile_canvas.height = 1080;
 
 const tile_ctx = tile_canvas.getContext('2d');
 
-const resolution_factor = 2;
+const resolution_factor = 3;
 
 const tile_count_x = 16 * resolution_factor;
 const tile_count_y = 9 * resolution_factor;

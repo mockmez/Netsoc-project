@@ -4,7 +4,7 @@
 int main(){
     FILE* fptr;
 
-    int resolution_factor = 2;
+    int resolution_factor = 3;
     int image_width = 16 * resolution_factor;
     int image_height = 9 * resolution_factor;
 
