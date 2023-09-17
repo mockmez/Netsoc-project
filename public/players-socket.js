@@ -1,8 +1,5 @@
 const socket = io('/players')
 
-socket.emit('chat message', "This is a test message")
-console.log('frontend')
-
 function selectColor(element){
     const color = window.getComputedStyle(element).backgroundColor
     const selectionDisplay = document.getElementById('selected-color')

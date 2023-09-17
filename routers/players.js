@@ -104,10 +104,6 @@ module.exports = (io) =>{
 
     routerNameSpace.on('connection', (socket) =>{
     
-        socket.on('chat message', (arg) =>{
-            console.log(`Chat message: ${arg}`)
-        })
-    
         socket.on('color-change', (arg) =>{
             
             if(socket.request.session && socket.request.session.passport){
@@ -125,43 +121,58 @@ module.exports = (io) =>{
 
                     if(user){
                         
-                        if((current_date - user.timestamp) > 3600000){
-                            console.log('it has not been an hour yet')
-                            
-                        }
+                        if((current_date - user.timestamp) < 3600000){
+                            console.log('it has been an hour yet')
+                            user.timestamp = current_date
+                            socket.request.session.passport.user = user;
 
-                        user.timestamp = current_date
-                        socket.request.session.passport.user = user;
+                            socket.request.session.save((err) =>{
+                                if(err){
+                                    console.log(err)
+                                    return;
+                                }
 
-                        socket.request.session.save((err) =>{
-                            if(err){
-                                console.log(err)
-                                return;
-                            }
+                                console.log('updated user time', user)
+                                console.log('this is the current time')
+                                console.log(new Date(Date.now()))
 
-                            console.log('updated user time', user)
-                            console.log('this is the current time')
-                            console.log(new Date(Date.now()))
-
-                        })
-
-                        try{
-                            
-                            userRegisterSchema.findByIdAndUpdate(userId,
-                                {timestamp: current_date},
-                                {new: true}).
-                                then(() => console.log('user updated time')).
-                                catch((error) =>{
-                                    console.log(error)
-                                })
-                            userRegisterSchema.findById(userId).then((user) =>{
-                                console.log('this user time', user)
                             })
 
+                            try{
+                                
+                                userRegisterSchema.findByIdAndUpdate(userId,
+                                    {timestamp: current_date},
+                                    {new: true}).
+                                    then(() => console.log('user updated time')).
+                                    catch((error) =>{
+                                        console.log(error)
+                                    })
+                                userRegisterSchema.findById(userId).then((user) =>{
+                                    console.log('this user time', user)
+                                })
+
+                            }
+                            catch(err){
+                                console.log(err)
+                            }
+
+                            console.log(arg)
+                            console.log('Test point 2')
+                            let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
+                            console.log('Data reached backend')
+                            data['Image'][arg['index']]['red'] = arg['color']['red']
+                            data['Image'][arg['index']]['blue'] = arg['color']['blue']
+                            data['Image'][arg['index']]['green'] = arg['color']['green']
+                            fs.writeFileSync('./public/image.json', JSON.stringify(data))
+                    
+                            routerNameSpace.emit('client-change', arg)
+
+                                
                         }
-                        catch(err){
-                            console.log(err)
+                        else{
+                            console.log('it has not been an hour')
                         }
+
 
                     }
 
@@ -171,17 +182,6 @@ module.exports = (io) =>{
             else{
                 console.log('error')
             }
-            
-            console.log(arg)
-            console.log('Test point 2')
-            let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
-            console.log('Data reached backend')
-            data['Image'][arg['index']]['red'] = arg['color']['red']
-            data['Image'][arg['index']]['blue'] = arg['color']['blue']
-            data['Image'][arg['index']]['green'] = arg['color']['green']
-            fs.writeFileSync('./public/image.json', JSON.stringify(data))
-    
-            routerNameSpace.emit('client-change', arg)
     
         })
     
