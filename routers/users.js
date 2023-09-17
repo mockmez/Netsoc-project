@@ -53,7 +53,7 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local',{
 router.post('/logout', checkAuthenticated, (req, res) =>{
     req.logout((err) =>{
         if(err)
-        console.log(err)
+        console.log('here is an error', err)
     })
     res.redirect('/')
 })

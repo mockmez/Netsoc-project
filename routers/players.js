@@ -7,7 +7,8 @@ const session = require('express-session')
 const mongoStore = require('connect-mongo')
 const passport = require('../passport-config');
 const LocalStrategy = require('passport-local').Strategy;
-
+const mongoose = require('mongoose')
+const userRegisterSchema = require('../model/users')
 
 const adminLoginSchema = require('../model/admin')
 
@@ -102,29 +103,74 @@ module.exports = (io) =>{
     io.use(wrap(passport.session()))
 
     routerNameSpace.on('connection', (socket) =>{
-        
-        console.log(socket.request.session)
-        
-        if (socket.request.session && socket.request.session.passport) {
-            const user = socket.request.session.passport.user;
-            console.log('Authenticated user:', user);
-            user.name = 'x'
-
-            socket.request.session.save((err) =>{
-                if(err)
-                console.log(err)
-            })
-
-        }
-        else{
-            console.log('error')
-        }
     
         socket.on('chat message', (arg) =>{
             console.log(`Chat message: ${arg}`)
         })
     
         socket.on('color-change', (arg) =>{
+            
+            if(socket.request.session && socket.request.session.passport){
+                const userId = socket.request.session.passport.user
+
+                var current_date = Date.now()
+
+                passport.deserializeUser(userId, async(err, user) =>{
+                    if(err){
+                        console.log(err)
+                        return;
+                    }
+
+                    console.log('debug time', socket.request.session.passport.user)
+
+                    if(user){
+                        
+                        if((current_date - user.timestamp) > 3600000){
+                            console.log('it has not been an hour yet')
+                            
+                        }
+
+                        user.timestamp = current_date
+                        socket.request.session.passport.user = user;
+
+                        socket.request.session.save((err) =>{
+                            if(err){
+                                console.log(err)
+                                return;
+                            }
+
+                            console.log('updated user time', user)
+                            console.log('this is the current time')
+                            console.log(new Date(Date.now()))
+
+                        })
+
+                        try{
+                            
+                            userRegisterSchema.findByIdAndUpdate(userId,
+                                {timestamp: current_date},
+                                {new: true}).
+                                then(() => console.log('user updated time')).
+                                catch((error) =>{
+                                    console.log(error)
+                                })
+                            userRegisterSchema.findById(userId).then((user) =>{
+                                console.log('this user time', user)
+                            })
+
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
+
+                    }
+
+                })
+
+            }
+            else{
+                console.log('error')
+            }
             
             console.log(arg)
             console.log('Test point 2')

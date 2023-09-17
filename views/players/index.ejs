@@ -52,7 +52,7 @@
             <div class="col-32" onclick="selectColor(this)"></div>
             <div class="sel-col" id="selected-color"></div>
             <form action="/players/" method="POST" id="tileForm" class="custom_btn">
-                <button style="flex-grow: 1;" onclick="document.getElementById('tileForm').submit();" type="button">Place Tile</button>
+                <button style="flex-grow: 1;" onclick="setColour(); document.getElementById('tileForm').submit();" type="button">Place Tile</button>
             </form>
               
         </div>
@@ -94,7 +94,7 @@
             <div class="col-32" onclick= "select_color_mobile(this)"></div>
         </div>
         <form action="/players/" method="POST" id="tileForm" class="btn">
-                <button style="flex-grow: 1;" onclick="document.getElementById('tileForm').submit();" type="button">Place Tile</button>
+                <button style="flex-grow: 1;" onclick="setColour(); document.getElementById('tileForm').submit();" type="button">Place Tile</button>
             </form>
     </div>
 
