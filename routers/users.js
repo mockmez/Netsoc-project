@@ -24,8 +24,9 @@ router.post('/logout', checkAuthenticated, (req, res) =>{
     req.logout((err) =>{
         if(err)
         console.log('here is an error', err)
+        else
+        res.redirect('/')
     })
-    res.redirect('/')
 })
 
 router.get('/info', (req, res) =>{

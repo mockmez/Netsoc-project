@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js",
-    "compile:sass": "sass --watch public/scss:public/assets/css"
+    "compile:sass": "sass --watch public/scss:public/assets/css",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
