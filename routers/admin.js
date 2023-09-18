@@ -30,6 +30,40 @@ router.get('/edit', checkAuthenticated, checkAdminSession, (req, res) =>{
     res.render('admin/edit')
 })
 
+router.get('/createadmin', (req, res) =>{
+    try{
+
+        userRegisterSchema.findOne({name: process.env.ADMIN_USERNAME}).
+        then((result) =>{
+            if(!result){
+                var addAdmin = new userRegisterSchema({
+                    name: process.env.ADMIN_USERNAME,
+                    email: 'example@netsoc.com',
+                    student_number: process.env.ADMIN_PASSWORD,
+                    timestamp: Date.now() - (3600 * 1000)
+                })
+    
+                addAdmin.save()
+                if(process.env.NODE_ENV !== 'production'){
+                    console.log('admin created successfully')
+                }
+            }
+            else if(result){
+                if(process.env.NODE_ENV !== 'production'){
+                    console.log('admin already exists')
+                }
+            }
+        })
+    
+    
+    }catch(error){
+        console.log('error creating admin', error)
+    }
+
+    res.render('admin/createadmin')
+    
+})
+
 router.post('/logout', checkAuthenticated, (req, res) =>{
     
     req.logout((err) =>{
@@ -65,6 +99,7 @@ router.post('/new', (req, res) =>{
     }
 
 })
+
 
 function checkAuthenticated(req, res, next){
     if(req.isAuthenticated()){
