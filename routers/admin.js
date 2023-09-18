@@ -4,6 +4,7 @@ const adminRegistrationSchema = require('../model/admin')
 const router = express.Router()
 const passport = require('passport')
 
+
 router.get('/', checkNotAuthenticated, (req, res) =>{
     res.render('admin/index', {admin: new adminRegistrationSchema()})
 })
@@ -13,15 +14,15 @@ router.post('/', checkNotAuthenticated, checkAdmin, passport.authenticate('local
     successRedirect: '/admin/options/'
 }))
 
-router.get('/options', checkAuthenticated, (req, res) =>{
+router.get('/options', checkAuthenticated, checkAdminSession, (req, res) =>{
     res.render('admin/options')
 })
 
-router.get('/new', checkAuthenticated, (req, res) =>{
+router.get('/new', checkAuthenticated, checkAdminSession, (req, res) =>{
     res.render('admin/new', {user: new userRegisterSchema()})
 })
 
-router.get('/edit', checkAuthenticated, (req, res) =>{
+router.get('/edit', checkAuthenticated, checkAdminSession, (req, res) =>{
     res.render('admin/edit')
 })
 
@@ -34,10 +35,6 @@ router.post('/logout', checkAuthenticated, (req, res) =>{
         res.redirect('/admin/')
     })
 
-})
-
-router.get('/reset', checkAuthenticated, (req, res) =>{
-    res.render('admin/reset')
 })
 
 router.post('/new', (req, res) =>{
@@ -65,10 +62,6 @@ router.post('/new', (req, res) =>{
 
 })
 
-router.get('/reset', (req, res) =>{
-    
-})
-
 function checkAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         next()
@@ -93,6 +86,15 @@ function checkAdmin(req, res, next){
 
     if(req.body.username == 'user-1' && req.body.student_id == '12345'){
         console.log('authenticated')
+        next()
+    }
+    else{
+        return res.redirect('/')
+    }
+}
+
+function checkAdminSession(req, res, next){
+    if(req.user.name === 'user-1' && req.user.student_number === '12345'){
         next()
     }
     else{
