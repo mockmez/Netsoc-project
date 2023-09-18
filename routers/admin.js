@@ -85,11 +85,8 @@ function checkNotAuthenticated(req, res, next){
 }
 
 function checkAdmin(req, res, next){
-    
-    console.log(req.body)
 
     if(req.body.username == process.env.ADMIN_USERNAME && req.body.student_id == process.env.ADMIN_PASSWORD){
-        console.log('authenticated')
         next()
     }
     else{

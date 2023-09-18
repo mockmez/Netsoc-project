@@ -12,7 +12,7 @@ const userRegisterSchema = require('../model/users')
 
 router.get('/', checkAuthenticated, (req, res) =>{
     
-    console.log(req.user)
+
     res.render('players/index', {page: 'players'})
 
 })
@@ -98,13 +98,10 @@ module.exports = (io) =>{
                         return;
                     }
 
-                    console.log('debug time', socket.request.session.passport.user)
-
                     if(user){
                         
                         if(((current_date - user.timestamp) < 0) || (user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
                             if(!(user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
-                                console.log('it has been an hour yet', current_date - user.timestamp)
                                 user.timestamp = current_date
                                 socket.request.session.passport.user = user;
 
@@ -114,10 +111,6 @@ module.exports = (io) =>{
                                         return;
                                     }
 
-                                    console.log('updated user time', user)
-                                    console.log('this is the current time')
-                                    console.log(new Date(Date.now()))
-
                                 })
 
                                 try{
@@ -125,13 +118,9 @@ module.exports = (io) =>{
                                     userRegisterSchema.findByIdAndUpdate(userId,
                                         {timestamp: current_date},
                                         {new: true}).
-                                        then(() => console.log('user updated time')).
                                         catch((error) =>{
                                             console.log(error)
                                         })
-                                    userRegisterSchema.findById(userId).then((user) =>{
-                                        console.log('this user time', user)
-                                    })
 
                                 }
                                 catch(err){
@@ -140,10 +129,7 @@ module.exports = (io) =>{
 
                             }
 
-                            console.log(arg)
-                            console.log('Test point 2')
                             let data = JSON.parse(fs.readFileSync('./public/image.json', {encoding: 'utf-8'}))
-                            console.log('Data reached backend')
                             data['Image'][arg['index']]['red'] = arg['color']['red']
                             data['Image'][arg['index']]['blue'] = arg['color']['blue']
                             data['Image'][arg['index']]['green'] = arg['color']['green']
@@ -153,10 +139,6 @@ module.exports = (io) =>{
 
                                 
                         }
-                        else{
-                            console.log('it has not been an hour', (current_date - user.timestamp))
-                        }
-
 
                     }
 
@@ -164,13 +146,15 @@ module.exports = (io) =>{
 
             }
             else{
-                console.log('error')
+                console.log('error in deriving socket information at routers/players')
             }
     
         })
     
         socket.on('disconnect', () =>{
-            console.log('A user has disconnected')
+            if(process.env.NODE_ENV !== 'production'){
+                console.log('A user has disconnected')
+            }
         })
     
     })

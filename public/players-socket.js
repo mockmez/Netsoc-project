@@ -7,8 +7,6 @@ function selectColor(element){
 }
 
 function select_color_mobile(element){
-    console.log(window.getComputedStyle(element).backgroundColor)
-    console.log('Test')
     selectColor(element)
     const wrapperParent = document.getElementById('palette-wrapper')
     const children = wrapperParent.children
@@ -20,10 +18,8 @@ function select_color_mobile(element){
 
 function setColour(){
     
-    console.log('test message')
 
     const color = window.getComputedStyle(document.getElementById('selected-color')).backgroundColor
-    //cursor.getTile().setColour(color)
     
     const rgbaString = color
     const regExRGBA = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/
@@ -35,8 +31,6 @@ function setColour(){
         const green = parseInt(match[2], 10);
         const blue = parseInt(match[3], 10);
 
-        console.log('Test point')
-
         socket.emit('color-change', {
             color:{
                 red: red,
@@ -47,7 +41,7 @@ function setColour(){
         })
     }
     else{
-        console.log('No match')
+        console.log('No match error at public/player_socket')
     }
 }
 

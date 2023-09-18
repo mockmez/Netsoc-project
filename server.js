@@ -91,5 +91,10 @@ app.use('/players', playerRouter)
 app.use('/admin', adminRouter)
 
 server.listen(process.env.PORT || 3000, () =>{
-    console.log(`Process listening on 3000`)
+    if(process.env.NODE_ENV !== 'production'){
+        console.log(`Process listening on 3000`)
+    }
+    else{
+        console.log('Process listening on', process.env.PORT)
+    }
 })
