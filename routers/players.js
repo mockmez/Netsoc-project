@@ -100,7 +100,7 @@ module.exports = (io) =>{
 
                     if(user){
                         
-                        if(((current_date - user.timestamp) < 0) || (user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
+                        if(((current_date - user.timestamp) > 3600000) || (user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
                             if(!(user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
                                 user.timestamp = current_date
                                 socket.request.session.passport.user = user;
