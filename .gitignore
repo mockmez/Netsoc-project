@@ -6,3 +6,6 @@ public/assets/css
 views/players/auth.ejs
 views/players
 .vscode
+.dockerignore
+docker-compose.yml
+Dockerfile
