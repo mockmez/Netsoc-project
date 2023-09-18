@@ -102,8 +102,8 @@ module.exports = (io) =>{
 
                     if(user){
                         
-                        if(((current_date - user.timestamp) < 0) || (user.name === 'user-1' && user.student_number === '12345')){
-                            if(!(user.name === 'user-1' && user.student_number === '12345')){
+                        if(((current_date - user.timestamp) < 0) || (user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
+                            if(!(user.name === process.env.ADMIN_USERNAME && user.student_number === process.env.ADMIN_PASSWORD)){
                                 console.log('it has been an hour yet', current_date - user.timestamp)
                                 user.timestamp = current_date
                                 socket.request.session.passport.user = user;

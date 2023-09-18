@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config({path: './.env'})
+}
+
 const express = require('express')
 const userRegisterSchema = require('../model/users')
 const adminRegistrationSchema = require('../model/admin')
@@ -84,7 +88,7 @@ function checkAdmin(req, res, next){
     
     console.log(req.body)
 
-    if(req.body.username == 'user-1' && req.body.student_id == '12345'){
+    if(req.body.username == process.env.ADMIN_USERNAME && req.body.student_id == process.env.ADMIN_PASSWORD){
         console.log('authenticated')
         next()
     }
@@ -94,7 +98,7 @@ function checkAdmin(req, res, next){
 }
 
 function checkAdminSession(req, res, next){
-    if(req.user.name === 'user-1' && req.user.student_number === '12345'){
+    if(req.user.name === process.env.ADMIN_USERNAME && req.user.student_number === process.env.ADMIN_PASSWORD){
         next()
     }
     else{
